@@ -28,7 +28,7 @@ typedef set<ii> sii;
 typedef set<int> si;
 #define LSOne(S) (S & (-S) )
 vll t;
-void ft_create (int n) {  t.assign(n+1, 0); }   
+void ft_create (int n) {  t.assign(n+5, 0); }   
 ll ft_rsq(int b) {
     ll sum = 0; for(; b; b -= LSOne(b) ) sum += t[b];
     return sum;
@@ -37,14 +37,13 @@ int ft_rsq(int a, int b) { return ft_rsq(b) - (a==1 ? 0 : ft_rsq(a-1)); }
 void ft_adjust(int k, ll v) {
     for(; k<= (int)t.size(); k+= LSOne(k)  ) t[k]+=v;
 }
-
-int main(int argc, char const *argv[]){
+int main(int argc, char const *argv[]) {
+    int n;
     vll v1, v2;
     ll sum, k;
-    int n;
-    while( sc1(n) ==1 ) {
-        v1.clear(), v2.clear();
-        sum = 0;
+    while(1){
+        sc1(n); iz(n);
+        v1.clear(); v2.clear(); sum = 0;
         ft_create(n);
         fr(i,0,n){
             scanf("%lld", &k);
@@ -53,14 +52,14 @@ int main(int argc, char const *argv[]){
         }
         sort(v2.begin(), v2.end());
         fr(i,0,n){
-            v1[i] = int(  lower_bound(v2.begin(), v2.end(), v1[i]) - v2.begin()  ) + 1;
+            v1[i] = int(lower_bound(v2.begin(), v2.end(), v1[i] ) - v2.begin() )  +1  ;
         }
-        for(int i = n-1; i >=0 ;i--){
-            k = v1[i];
-            if(k > 1 ) sum += ft_rsq(k-1); // numero repetido
+        for(int i = n-1; i>= 0; i-- ){
+            ll k  = v1[i];
+            sum += ft_rsq(k);
             ft_adjust(k, 1);
         }
-        printf("Minimum exchange operations : %lld\n", sum);
+        printf("%lld\n", sum);
     }
     return 0;
 }

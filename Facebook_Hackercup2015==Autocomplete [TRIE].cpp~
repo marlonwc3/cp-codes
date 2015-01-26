@@ -29,70 +29,58 @@ typedef set<ii> sii;
 typedef set<int> si;
 typedef pair<char, int> ci;
 
-int arr[105];
-int pd[50005];
-int pai[50005];
-int n,m;
-void go(){
-	int t;
-	fe(i,0,m) {pd[i]=inf; pai[i]=-1;}
-	pd[0]=0;
-	fr(i,0,n){
-		fe(j,0,m){
-			t = j+arr[i];
-			if( t > m  ) break;
-			if(1+pd[j] < pd[t] ){
-				pd[t] = 1+ pd[j];
-				pai[t]= arr[i];
-			}
-			else if(1+pd[j] == pd[t] && pai[j] < pai[t] ){
-				pai[t]= arr[i];				
-			}			
-		}	
-	}	
+struct Node {
+	int adj[29]; ll prefix;
+	Node(){ mst(adj, -1); prefix = 0; }	
+	Node(ll _prefix){ mst(adj, -1); prefix = _prefix; }	
+	int& operator [](const int i){
+		return adj[i]; }
+};
+Node tree[1000015];
+int next;
+void init(){ tree[0] = Node(); next = 1; }
+int initNode(){
+	tree[next] = Node();
+	return next++;
 }
-vi v;
-void go2(int m){ // pegar o caminho 
-	int d;
-	v.clear();
-	while(pai[m] != -1 ) {
-		v.pb(pai[m]);
-		m = m-pai[m];
-	}	
+int cnt, h, len;
+string str;
+int insert(int no, int p){
+	if(no==-1){
+		no = initNode();
+	}
+	if(no && !tree[no].prefix) {
+		h = min(h, cnt);
+	}
+	cnt++;	
+	tree[no].prefix++;
+	if(p < len ) {
+		char ch = str[p] - 'a';
+		tree[no][ch] = insert(tree[no][ch], p+1);
+	}
+	return no;
 }
 
-int main (int argc, char const* argv[]){
-	while(1){
-		sc1(m); iz(m);
-		sc1(n);
-		fr(i,0,n) sc1(arr[i]);
-		
-		go();
-		
-		n = pd[m];
-		if(n<0 || n >= inf ) printf("Impossivel\n");
-		else {
-			printf("%d\nmoedas de [%d]:\n", n, m);
-			go2(m);
-			n = v.size();
-			int sum = 0;
-			for(int i = n-1; i>=0; i--){
-				printf("%d ", v[i] );
-				sum+=v[i];
-			}
-			_
-			printf("fim sum: %d \n" , sum);
+int main(int argc, char const *argv[]) {
+			cnt = 0; h = 100; len = str.length();
+			insert(0,0);
+
+	int caso, n, k;
+	sc1(caso);
+	fe(t,1,caso){
+		init();
+		sc1(n); getline(cin, str);
+		k = 0;
+		while(n--){
+			getline(cin, str);
+
+			h = min(h, len);
+			k+=h;
 		}
+		printf("Case #%d: %d\n", t, k);
 	}
 	return 0;
 }
-
-
-
-
-
-
-
 
 
 

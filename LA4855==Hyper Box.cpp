@@ -40,18 +40,12 @@ void f(){
 	}	
 	siz = v.size();
 }
-
 lld find(lld k){
-	for(int i = siz-1; i >= 0; i--){
-		if(v[i] <= k) return v[i]; 
-	}
+	for(int i = siz-1; i >= 0; i--) if(v[i] <= k) return v[i]; 
 	return 0;
 }
-
-
 int main (int argc, char const* argv[]) {
 	f();
-	
 	int t, n;
 	lld k, res, r, cnt;
 	sc1(t);
@@ -68,11 +62,8 @@ int main (int argc, char const* argv[]) {
 			}
 			res*=cnt;
 		}
-		
 		printf("Case %d: %lld\n", j, res);
-	}
-	
-	
+	}	
 	return 0;
 }
 

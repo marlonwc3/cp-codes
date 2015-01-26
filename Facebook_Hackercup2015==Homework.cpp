@@ -7,6 +7,7 @@
 #define iz(b) if(b==0) { break; }
 #define pb(a) push_back(a)
 #define inf 0x3f3f3f3f
+#define linf 0x3f3f3f3f3f3f3f3f
 #define mst(a, b) memset(a, b, sizeof a)
 #define fr(i,a,b) for(int i=(a); i < (b); i++)
 #define fe(i,a,b) for(int i=(a); i <= (b); i++)
@@ -15,7 +16,7 @@
 #define pv(a, i) for(int i =0 ; i < (a.size()+0 ); i++ ) {printf("%d ",a[i]); if(i==a.size() - 1 )_  }
 #define pvp(a, i) for(int i =0 ; i <(a.size()+0 ); i++ ) {printf("%d %d ~ ",a[i].st, a[i].nd); if(i==a.size() - 1 )_  }
 #define nd second
-#define EPS 1e-9
+#define EPS 1e-7
 #define PI acos(-1)
 using namespace std;
 typedef vector<int> vi;
@@ -26,41 +27,35 @@ typedef vector<ll> vll;
 typedef vector<vi> vvi;
 typedef set<ii> sii;
 typedef set<int> si;
-#define LSOne(S) (S & (-S) )
-vll t;
-void ft_create (int n) {  t.assign(n+1, 0); }   
-ll ft_rsq(int b) {
-    ll sum = 0; for(; b; b -= LSOne(b) ) sum += t[b];
-    return sum;
-}
-int ft_rsq(int a, int b) { return ft_rsq(b) - (a==1 ? 0 : ft_rsq(a-1)); }
-void ft_adjust(int k, ll v) {
-    for(; k<= (int)t.size(); k+= LSOne(k)  ) t[k]+=v;
+typedef pair<char, int> ci;
+
+ll crive[10000005];
+void go(){
+    for(ll i = 2; i < 10000005; i++){
+        if(crive[i]) continue;
+        for(ll j = 2*i; j> 0 && j < 10000005; j+=i){
+            crive[j]++;
+        }
+        crive[i]=1;
+    }
 }
 
-int main(int argc, char const *argv[]){
-    vll v1, v2;
-    ll sum, k;
-    int n;
-    while( sc1(n) ==1 ) {
-        v1.clear(), v2.clear();
-        sum = 0;
-        ft_create(n);
-        fr(i,0,n){
-            scanf("%lld", &k);
-            v1.pb(k);
-            v2.pb(k);
+
+int main(int argc, char const *argv[]) {
+    go();
+    int a,b,k, caso;
+    ll cnt = 0; 
+    sc1(caso);
+    fe(t,1,caso){
+        sc3(a,b,k);
+        cnt = 0;
+        fe(i,a,b){
+            cnt += (crive[i] == k);
         }
-        sort(v2.begin(), v2.end());
-        fr(i,0,n){
-            v1[i] = int(  lower_bound(v2.begin(), v2.end(), v1[i]) - v2.begin()  ) + 1;
-        }
-        for(int i = n-1; i >=0 ;i--){
-            k = v1[i];
-            if(k > 1 ) sum += ft_rsq(k-1); // numero repetido
-            ft_adjust(k, 1);
-        }
-        printf("Minimum exchange operations : %lld\n", sum);
+        printf("Case #%d: %I64d\n", t, cnt);
+    
     }
+
+
     return 0;
 }

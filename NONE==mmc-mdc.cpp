@@ -11,10 +11,7 @@ int mdc(int a, int b){ // algoritmo de euclides
 	return mdc(b, a%b);
 }
 
-int mmc(int a, int b){
-	return (a*b)/mdc(a,b);
-}
-
+int mmc(int a, int b){ return (a*b)/mdc(a,b); }
 int main (int argc, char const* argv[]) {
 	int a, b;
 	

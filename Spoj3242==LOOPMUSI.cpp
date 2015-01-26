@@ -5,13 +5,8 @@
 using namespace std;
 
 int n;
-
-int des(int k){
-	return (k+1)%n;
-}
-
-int arr[10005];
-int sign, nsign;
+int des(int k){ return (k+1)%n; }
+int arr[10005], sign, nsign;
 int main (int argc, char const* argv[]) {
 	int first, a, cont;
 	while(1){
@@ -29,9 +24,7 @@ int main (int argc, char const* argv[]) {
 					sign = nsign;
 				}
 			}
-
 		}	
-	
 		nsign = arr[0] - arr[n-1] > 0  ? 1 : -1;
 		if(nsign != sign ) {
 			cont++;
@@ -42,11 +35,7 @@ int main (int argc, char const* argv[]) {
 			cont++;
 			sign = nsign;
 		}		
-		
 		printf("%d\n", cont);
-		
 	}
-
-
-		return 0;
+	return 0;
 }

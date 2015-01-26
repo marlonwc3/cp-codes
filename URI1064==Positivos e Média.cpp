@@ -15,7 +15,7 @@
 #define pv(a, i) for(int i =0 ; i < (a.size()+0 ); i++ ) {printf("%d ",a[i]); if(i==a.size() - 1 )_  }
 #define pvp(a, i) for(int i =0 ; i <(a.size()+0 ); i++ ) {printf("%d %d ~ ",a[i].st, a[i].nd); if(i==a.size() - 1 )_  }
 #define nd second
-#define EPS 1e-9
+#define EPS 1e-7
 #define PI acos(-1)
 using namespace std;
 typedef vector<int> vi;
@@ -26,37 +26,28 @@ typedef vector<ll> vll;
 typedef vector<vi> vvi;
 typedef set<ii> sii;
 typedef set<int> si;
-#define LSOne(S) (S & (-S) )
-vll t;
-void ft_create (int n) {  t.assign(n+5, 0); }   
-ll ft_rsq(int b) {
-    ll sum = 0; for(; b; b -= LSOne(b) ) sum += t[b];
-    return sum;
+
+
+int cmp(double a, double b=0.0){
+    if ( fabs(a-b) <= EPS ) return 0;
+    return (a>b)? 1 : -1;
 }
-int ft_rsq(int a, int b) { return ft_rsq(b) - (a==1 ? 0 : ft_rsq(a-1)); }
-void ft_adjust(int k, ll v) {
-    for(; k<= (int)t.size(); k+= LSOne(k)  ) t[k]+=v;
-}
-int main(int argc, char const *argv[]) {    
-    ll sum = 0;
-    int n, k;
-    vi v;
-    while( 1  ){
-        sc1(n); iz(n);
-        v.clear();
-        sum =0;
-        ft_create(n);
-        fr(i,0,n){
-            sc1(k);
-            v.pb(k);
+
+int main(int argc, char const *argv[]) {
+    double k;
+    double sum = 0;
+    int cnt = 0;
+    fr(i,0,6){
+        scanf("%lf", &k);
+        
+        if ( cmp(k) == 1 )  {
+            sum += k;
+            cnt++;
         }
-        for(int i = v.size() -1 ; i >= 0; i--){
-            k = v[i];
-            sum += ft_rsq( k );
-            ft_adjust(k , 1);
-        }
-        if(sum%2 == 0 )  printf("Carlos\n");
-        else printf("Marcelo\n");
-    }
+    }   
+
+    sum = sum/cnt;
+    printf("%d valores positivos\n", cnt);
+    printf("%.1lf\n", sum);
     return 0;
 }

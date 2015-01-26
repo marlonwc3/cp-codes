@@ -1,7 +1,6 @@
 string pd[300][300];
 bool mark[300][300];
 string  a, b; // params
-
 string lcs(int i, int j){
 	if(i==a.length() || j == b.length() ) return "";
 	if(mark[i][j]) return pd[i][j];
