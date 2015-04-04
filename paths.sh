@@ -1,5 +1,5 @@
 #!/bin/bash
-#Credits: Duhan Caraciolo (dcms2@cin.ufpe.br)
+#Credits: Duhan Caraciolo (dcms2)
 shopt -s nocasematch
 IFS=$(echo -en "\n\b")
  
