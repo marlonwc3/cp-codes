@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+#define _ printf("\n");
+#define sc1(a) scanf("%d", &a)
+#define sc2(a,b) scanf("%d %d", &a, &b)
+#define sc3(a,b,c) scanf("%d %d %d", &a, &b, &c)
+#define sc4(a,b,c, d) scanf("%d %d %d %d", &a, &b, &c, &d)
+#define iz(b) if(b==0) { break; }
+#define pf(a) printf("%d ", a);
+#define pfc(c,a) printf("%c -> %d ", c, a);
+#define pb(a) push_back(a)
+#define inf 0x3f3f3f3f
+#define mst(a, b) memset(a, b, sizeof a)
+#define fr(i,a,b) for(int i=a; i < b; i++)
+#define mp(a,b) make_pair(a,b)
+#define st first
+#define pv(a, i) for(int i =0 ; i < (a.size()+0 ); i++ ) {printf("%d ",a[i]); if(i==a.size() - 1 )_  }
+#define pvp(a, i) for(int i =0 ; i <(a.size()+0 ); i++ ) {printf("%d %d ~ ",a[i].st, a[i].nd); if(i==a.size() - 1 )_  }
+#define nd second
+using namespace std;
+typedef vector<int> vi;
+typedef long long int lld;
+typedef pair<int,int> ii; // first==no, second==wieght
+typedef vector<ii> vii;
+typedef vector<lld> vlld;
+typedef vector<vi> vvi;
+typedef set<ii> sii;
+typedef set<int> si;
+typedef pair<char, int> ci;
+
+vi e[10005];
+int memo2[10005];
+int memo[10005];
+bool mark[10005];
+bool mark2[10005];
+
+
+int cont(int no){
+	if(memo[no] != -1) return memo[no];
+	mark[no] = 1;
+	int r = 0, s = e[no].size();
+	fr(i,0,s) if( !mark[e[no][i]]) r = max(r,  cont(e[no][i]) );
+	return memo[no] = 1 + r;
+}
+
+int f(int ini){
+	mark2[ini] = 1;
+	if(memo2[ini]!=-1) return memo2[ini];
+	int s = e[ini].size();
+	if(s==0) return 0;
+	int ma, mb, res, r; 
+	ma=mb=res=r=0;
+	fr(i,0,s){
+		int adj = e[ini][i];
+		if(mark2[ e[ini][i] ] )  continue;
+		r = cont(  e[ini][i] ); 
+		if ( r > ma )  {
+			mb = ma; 
+			ma = r;
+		}
+		else if(r > mb) mb = r; 
+		r = f(e[ini][i]);
+		res = max(res, r);
+	}
+	res = max(res, 1 + ma + mb);
+	return memo2[ini] = res;
+}
+
+void init(){
+	mst(mark,0);
+	mst(mark2, 0);
+	mst(memo, -1);
+	mst(memo2, -1);	
+}
+
+
+int main (int argc, char const* argv[]) {
+	int n, a,b, s;
+	while(scanf("%d", &n)  != EOF ) {
+		init();
+		for(int i = 0; i<= n; i++) e[i].clear();
+		n--;
+		fr(i,0,n){
+			sc2(a,b);	
+			e[a].pb(b);
+			e[b].pb(a);
+		}
+		cont(1);
+		a = f(1);
+		a--;
+		printf("%d\n", a);
+	} 
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
