@@ -130,7 +130,7 @@ int main(int argc, char const *argv[]) {
 	fe(i,1,n){
 		fr(j,0,e[i].size()){
 			if(e[i][j].nd==1){
-				adj = e[i][j].st;
+				adj= e[i][j].st;
 				ii p1 = mp(i, adj);
 				ii p2 = mp(adj, i);
 				if(myset.count(p1) || myset.count(p2)  ) continue;

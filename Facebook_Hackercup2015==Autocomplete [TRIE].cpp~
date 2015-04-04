@@ -46,6 +46,10 @@ int initNode(){
 int cnt, h, len;
 string str;
 int insert(int no, int p){
+	while( 1 ){
+		
+	
+	} 
 	if(no==-1){
 		no = initNode();
 	}
@@ -62,9 +66,6 @@ int insert(int no, int p){
 }
 
 int main(int argc, char const *argv[]) {
-			cnt = 0; h = 100; len = str.length();
-			insert(0,0);
-
 	int caso, n, k;
 	sc1(caso);
 	fe(t,1,caso){
@@ -73,12 +74,15 @@ int main(int argc, char const *argv[]) {
 		k = 0;
 		while(n--){
 			getline(cin, str);
-
+			cnt = 0; h = 100; len = str.length();
+			insert(0,0);
 			h = min(h, len);
 			k+=h;
 		}
 		printf("Case #%d: %d\n", t, k);
 	}
+
+	
 	return 0;
 }
 
