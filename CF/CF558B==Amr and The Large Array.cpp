@@ -27,43 +27,44 @@ typedef vector<ii> vii;
 typedef vector<ll> vll;
 typedef vector<vi> vvi;
 
-string s1 = ".alal";
-string s2 = "miao.";
+const int MAX_N = 1000000;
+int L[MAX_N + 5];
+int R[MAX_N + 5];
 
+int ans = 0;
+int freq[MAX_N + 5];
+int N;
+
+vi todos;
 int main (int argc, char const* argv[]){
-	int N;
-	string str;
-	sc1(N);
-	getline(cin, str);
-	int l;
-	bool ok1, ok2;
-	fr(i,0,N){
-		getline(cin, str);
-		l = str.length();
-		ok1 = 0, ok2 = 0;
-		string x, aux;
-		x = "";
-		int l2 = min(l, int(s2.length()));
-		fr(j,0,l2){
-			x.pb(str[j]);
-		}
-		if(x == s2) ok2=1;
-		reverse(str.begin(), str.end());
-	
-		x = "";
-		l2 = min(l, int(s1.length()));
-		fr(j,0,l2){
-			x.pb(str[j]);
-		}
-		if(x == s1) ok1=1;		
-		if(ok1 && ok2) printf("OMG>.< I don't know!\n");
-		else if(!ok1 && !ok2) printf("OMG>.< I don't know!\n");
-		else if(ok1) printf("Freda's\n");
-		else printf("Rainbow's\n");
-		
-		
-		
+	fe(i,0,MAX_N){
+		L[i] = inf;
+		R[i] = -1;
 	}
+	sc1(N);
+	int x;
+	fr(i,0,N){
+		sc1(x);
+		L[x] = min(L[x], i);
+		R[x] = max(R[x], i);
+		freq[x]++;
+		ans = max(ans, freq[x]);
+	}
+	int d = inf;
+	int l = -1, r = -1;
+	fe(i,0,MAX_N){
+		if(R[i] == -1) continue;
+		if(freq[i] == ans ){
+			int d2 = (R[i] - L[i] +1);
+			if( d2 < d ) {
+				d = d2;
+				l = L[i], r = R[i];
+			}
+			
+			
+		}
+	}
+	printf("%d %d\n", l+1, r+1);
 	
 	
 	

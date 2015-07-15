@@ -27,38 +27,86 @@ typedef vector<ii> vii;
 typedef vector<ll> vll;
 typedef vector<vi> vvi;
 
+#include <tr1/unordered_map>
+using namespace tr1; 
 
 
+const int MAIOR = 100000;
+int pd_qnt[MAIOR+10], pd_sum[MAIOR+10];
+int pd1[MAIOR+10];
+int pd_ok[MAIOR+10];
+int PASSO =0 ;
+
+int S = 64;
+
+int gerou[MAIOR+10], NEXT = 0;
+
+int ans = inf;
 
 int main (int argc, char const* argv[]){
-	int d=0;
-	string s1, s2;
-	getline(cin,s1);
-	getline(cin,s2);
-	int n = s1.length();
-	fr(i,0,n){
-		if(s1[i] != s2[i]) {
-			d++;
+	int N, x;
+	int  k1, k2;
+	int SL, SR; 
+	sc1(N);
+	fr(i,0,N) {
+		sc1(x);
+		k1 = x;
+		PASSO++;
+		NEXT = 0 ;
+		fr(sl,0,S){
+			k2 = k1;
+			fr(sr,0,S){
+				if(pd_ok[k2] != PASSO ){
+					pd_ok[k2] = PASSO;
+					pd_qnt[k2]++;
+					pd1[k2] = sl+sr;
+					gerou[NEXT++] = k2;
+					//printf("NEXT: %d\n", NEXT);
+					assert(NEXT < (16*16)+50 ); 
+				}
+				else pd1[k2] = min(pd1[k2], sl+sr);
+				k2 >>= 1;
+				if(k2 <= 0 ) break;  
+			}
+			k1 <<= 1;
+			if(k1 > MAIOR ) break; 
 		}
-	}
-
-	string s3 = s1;
-	if(d%2 != 0 ) {
-		printf("impossible\n");
-	}
-	else{
-		d/=2;
-		for(int i = 0; i < n && d; i++){
-			if(s1[i] != s2[i]) {
-				s1[i] = s2[i];
-				d--;
+		k1 = x;
+		fr(sl,0,S){
+			k2 = k1;
+			fr(sr,0,S){
+				if(pd_ok[k2] != PASSO ){
+					pd_ok[k2] = PASSO;
+					pd_qnt[k2]++;
+					pd1[k2] = sl+sr;
+					gerou[NEXT++] = k2;
+				}
+				else pd1[k2] = min(pd1[k2], sl+sr);				
+				k2 <<= 1; 
+				if(k2 > MAIOR)  break;
+			}
+			k1 >>= 1;
+			if(k1 <= 0 ) break; 
+		}		
+		int b;
+		fr(j,0,NEXT) {
+			b = gerou[j];
+			pd_sum[b] += pd1[b]; 
+			if(i==N-1 && pd_qnt[b] == N ){
+				ans = min(ans, pd_sum[b] ); 
 			}
 		}
-		printf("%s\n", s1.c_str()) ;
 	
 	}
 
+	int q; 
+
+	printf("%d\n", ans );
+	
 	
 	
 	return 0;
 }
+
+
+

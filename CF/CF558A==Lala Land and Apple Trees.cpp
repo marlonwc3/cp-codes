@@ -27,50 +27,69 @@ typedef vector<ii> vii;
 typedef vector<ll> vll;
 typedef vector<vi> vvi;
 
-string str;
-vi v1, v2;
-int main (int argc, char *argv[]) {
-	getline(cin, str);
-	int l = str.length();
-	for(int i = 0; i < l; i++){
-		if(i + 1 < l ){
-			if(str[i] == 'A' && str[i+1] == 'B' ) {
-				v1.pb(i);
-			}
-		}
-	//	ABC
-	//	0 1 2 
+
+vii v1;
+vii v2;
+int N;
+
+
+int main (int argc, char *argv[]){
+	sc1(N);
+	int a,b;
+	fr(i,0,N){
+		sc2(a,b);
+		if(a < 0 ) v1.pb(mp(a,b));
+		else v2.pb(mp(a,b));
 	}
-	for(int i = 0; i < l; i++){
-		if(i + 1 < l ){
-			if(str[i] == 'B' && str[i+1] == 'A' ) {
-				v2.pb(i);
-			}
+	sort(v1.begin(), v1.end());
+	reverse(v1.begin(), v1.end());
+	sort(v2.begin(), v2.end());
+	ll ans = 0, r = 0;
+	// left first
+	bool dir; int p1, p2;
+	
+	dir = 1; // left
+	p1 = 0 ;
+	p2 = 0;
+	r = 0;
+	//pv(v1,x);
+	while(1){
+		if( dir && p1 >= v1.size() ) break;
+		else if( !dir && p2 >= v2.size() ) break;
+		if(dir) {
+			r += v1[p1++].nd; 
+
+			
 		}
+		else {
+			r += v2[p2++].nd;
+		}
+			dir = !dir;	
+	}
+	
+	ans = max(ans, r);
+	
+	r = 0;
+	dir = 0; // left
+	p1 = 0 ;
+	p2 = 0;
+	
+	while(1){
+		if( dir && p1 >= v1.size() ) break;
+		else if( !dir && p2 >= v2.size() ) break;
+		if(dir) {
+			r += v1[p1++].nd; 
+
+			
+		}
+		else {
+			r += v2[p2++].nd;
+		}
+			dir = !dir;	
 	}	
-	bool ok = 0;
-	if(!v1.empty() && !v2.empty() ) {
-		int d = abs ( v2.back() - v1[0] );
-		if( d >= 2) ok = 1;
-		
-		 d = abs(v2[0] - v1.back() );
-			if( d >= 2) ok = 1;
-	}
-	if(ok) printf("YES\n");
-	else printf("NO\n");
-	
-	
-	
-	
-	
-	
-	
-	
+	ans = max(ans, r);
+	printf("%I64d\n", ans);	
 	
 	return 0;
 }
-
-
-
-
 
