@@ -45,40 +45,43 @@ typedef pair<int, int> pii; // tati
 const int INF = 0x3f3f3f3f; // tati
 const double PI = acos(-1);
 
+ll f[40]; 
+int main (int argc, char const* argv[])
+{
+	f[1] = 1;
+	f[2] = 5;
+	f[3] = 11;
+	f[4] = 36;
+	f[5] = 95;
+	f[6] = 281;
+	f[7] = 781;
+	f[8] = 2245;
+	f[9] = 6336;
+	f[10] = 18061;
+	f[11] = 51205;
+	f[12] = 145601;
+	f[13] = 413351;
+	f[14] = 1174500;
+	f[15] = 3335651;
+	f[16] = 9475901;
+	f[17] = 26915305;
+	f[18] = 76455961;
+	f[19] = 217172736;
+	f[20] = 616891945;
+	f[21] = 1752296281;
 
-char str[100000];
+	int caso, N;
+	sc1(caso);
+	fe(T,1,caso){
+		sc1(N);
+		printf("%d %lld\n", T, f[N] ); 
+	
+	}
 
-int main (int argc, char const* argv[]){
-    int caso, N;
-    double x;    
-    
-    sc1(caso);
-    fe(T,1,caso){
-        scanf("%lf %s", &x, str); 
-        printf("%d ",T);
-        if(str[0] == 'k' ){
-            x *= 2.2046;
-            printf("%.4lf lb\n", x);
-        }
-        else if(str[0] == 'l' && str[1] == 'b' ) {
-            x *= 0.4536;
-            printf("%.4lf kg\n", x);            
-        }
-        else if( str[0] == 'l' ) {
-            x*=0.2642;
-            printf("%.4lf g\n", x);            
-        }
-        else {
-            x *= 3.7854;
-            printf("%.4lf l\n", x);            
-            
-        }
-        
-        
-        
-    }
-    
-    
-    
-    return 0;
+
+	
+	
+	
+	
+	return 0;
 }

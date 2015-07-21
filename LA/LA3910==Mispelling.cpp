@@ -47,35 +47,18 @@ const double PI = acos(-1);
 
 
 char str[100000];
-
 int main (int argc, char const* argv[]){
     int caso, N;
-    double x;    
-    
     sc1(caso);
     fe(T,1,caso){
-        scanf("%lf %s", &x, str); 
-        printf("%d ",T);
-        if(str[0] == 'k' ){
-            x *= 2.2046;
-            printf("%.4lf lb\n", x);
-        }
-        else if(str[0] == 'l' && str[1] == 'b' ) {
-            x *= 0.4536;
-            printf("%.4lf kg\n", x);            
-        }
-        else if( str[0] == 'l' ) {
-            x*=0.2642;
-            printf("%.4lf g\n", x);            
-        }
-        else {
-            x *= 3.7854;
-            printf("%.4lf l\n", x);            
-            
-        }
+        scanf("%d %s", &N, str);
+        printf("%d ", T);
         
-        
-        
+        for(int i = 0; str[i]; i++ ){
+            if(i==(N-1) ) continue;
+            printf("%c", str[i]);
+        }
+        _
     }
     
     

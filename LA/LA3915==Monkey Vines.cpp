@@ -45,40 +45,43 @@ typedef pair<int, int> pii; // tati
 const int INF = 0x3f3f3f3f; // tati
 const double PI = acos(-1);
 
-
-char str[100000];
-
-int main (int argc, char const* argv[]){
-    int caso, N;
-    double x;    
-    
-    sc1(caso);
-    fe(T,1,caso){
-        scanf("%lf %s", &x, str); 
-        printf("%d ",T);
-        if(str[0] == 'k' ){
-            x *= 2.2046;
-            printf("%.4lf lb\n", x);
-        }
-        else if(str[0] == 'l' && str[1] == 'b' ) {
-            x *= 0.4536;
-            printf("%.4lf kg\n", x);            
-        }
-        else if( str[0] == 'l' ) {
-            x*=0.2642;
-            printf("%.4lf g\n", x);            
-        }
-        else {
-            x *= 3.7854;
-            printf("%.4lf l\n", x);            
-            
-        }
-        
-        
-        
-    }
-    
-    
-    
-    return 0;
+ll fexp(ll a, ll b){
+	if(!b) return 1;
+	if(b==1 ) return a;
+	ll r = fexp(a, b/2); r*=r; 
+	if(b%2 == 1 ) r *= a;
+	return r;
 }
+
+
+
+string line;
+int main (int argc, char const* argv[]){
+	int caso; 
+	sc1(caso); getline(cin, line);
+	int op, r, len;
+	fe(T,1,caso){
+		getline(cin, line);
+		r = 0;
+		op = 0;
+		len = line.length();
+		fr(i,0,len){
+			if(line[i] == '[' ) { op++; }
+			else op--;
+			r = max(r, op);
+		}
+		
+		ll x = fexp(2 , r);
+		printf("%d %lld\n", T, x);
+		
+		
+		
+	
+	
+	}
+	
+	
+	
+	return 0;
+}
+
